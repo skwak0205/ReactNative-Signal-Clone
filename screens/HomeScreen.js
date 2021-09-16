@@ -34,8 +34,9 @@ const HomeScreen = ({ navigation }) => {
       headerStyle: { backgroundColor: '#fff' },
       headerTitleStyle: { color: 'black' },
       headerTintColor: 'black',
+      headerTitleAlign: 'center',
       headerLeft: () => (
-        <View style={{ marginRight: 120 }}>
+        <View>
           <TouchableOpacity onPress={signOutUser} activeOpacity={0.5}>
             <Avatar rounded source={{ uri: auth?.currentUser?.photoURL }} />
           </TouchableOpacity>
@@ -71,11 +72,20 @@ const HomeScreen = ({ navigation }) => {
     });
   };
 
+  const enterChat = (id, chatName) => {
+    navigation.navigate('Chat', { id, chatName });
+  };
+
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
         {chats.map(({ id, data: { chatName } }) => (
-          <CustomListItem key={id} id={id} chatName={chatName} />
+          <CustomListItem
+            key={id}
+            id={id}
+            chatName={chatName}
+            enterChat={enterChat}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
